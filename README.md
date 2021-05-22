@@ -1,2 +1,2 @@
 # CoWin-Alert
-Alert About Slot Availability in Covid Vaccine in India
+Alert About Slot Availability for Covid Vaccine in India

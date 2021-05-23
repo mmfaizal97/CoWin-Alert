@@ -16,7 +16,7 @@ public class CowinSlotFinder extends JPanel {
         System.setOut(new PrintStream(taOutputStream));
     }
 
-    public static void createAndShowGui(CowinService cowinService, Integer districtChoice, String filterChoice, String dosageChoice, int waitTime) {
+    public static void createAndShowGui(CowinService cowinService, Integer districtChoice, String ageFilterChoice, String dosageChoice, int waitTime) {
         JFrame frame = new JFrame("Cowin Slot Finder");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(new CowinSlotFinder());
@@ -24,7 +24,7 @@ public class CowinSlotFinder extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        cowinService.startSlotSearchingService(districtChoice, filterChoice, dosageChoice, waitTime);
+        cowinService.startSlotSearchingService(districtChoice, ageFilterChoice, dosageChoice, waitTime);
         cowinService.createSoundAlert();
     }
 

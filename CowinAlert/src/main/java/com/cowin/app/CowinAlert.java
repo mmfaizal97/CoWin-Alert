@@ -7,6 +7,7 @@ import com.cowin.states.State;
 import com.cowin.ui.CowinSlotFinder;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,9 +26,12 @@ public class CowinAlert {
 
         JComboBox<String> stateComboBox = new JComboBox<>();
         JComboBox<String> districtComboBox = new JComboBox<>();
-        JComboBox<String> ageLimit = new JComboBox<>(new String[]{"18+", "45+"});
+        JComboBox<String> ageFilter = new JComboBox<>(new String[]{"18+", "45+"});
         JComboBox<String> dosage = new JComboBox<>(new String[]{"Dose 1", "Dose 2"});
         JTextField repeatFrequency = new JTextField("5");
+        Font bigFont = repeatFrequency.getFont().deriveFont(Font.BOLD, 13f);
+        repeatFrequency.setFont(bigFont);
+        JLabel blankLabel = new JLabel(" ");
 
         stateList.forEach(state -> stateComboBox.addItem(state.getState_name()));
         stateComboBox.addActionListener(e -> {
@@ -44,9 +48,11 @@ public class CowinAlert {
             districtList.addAll(districtListTemp);
         });
 
-        final JComponent[] inputs = new JComponent[]{new JLabel("State: "), stateComboBox, new JLabel("District: "), districtComboBox,
-                new JLabel("Age Filter: "), ageLimit, new JLabel("Dosage: "), dosage,
-                new JLabel("Repeat Search Frequency (in seconds): "), repeatFrequency};
+        final JComponent[] inputs = new JComponent[]{new JLabel("State: "), stateComboBox, blankLabel,
+                new JLabel("District: "), districtComboBox, blankLabel,
+                new JLabel("Age Filter: "), ageFilter, blankLabel,
+                new JLabel("Dosage: "), dosage, blankLabel,
+                new JLabel("Repeat Search Frequency (in seconds): "), repeatFrequency, blankLabel};
         int result = JOptionPane.showConfirmDialog(null, inputs, "Cowin Vaccination Slot Notifier", JOptionPane.DEFAULT_OPTION);
 
         if (result != JOptionPane.OK_OPTION) {
@@ -56,7 +62,7 @@ public class CowinAlert {
 
         Integer districtChoice = districtList.stream().filter(district -> district.getDistrict_name().equals(districtComboBox.getSelectedItem()))
                 .collect(Collectors.toList()).get(0).getDistrict_id();
-        String filterChoice = (String) ageLimit.getSelectedItem();
+        String ageFilterChoice = (String) ageFilter.getSelectedItem();
         String dosageChoice = (String) dosage.getSelectedItem();
         int waitTime;
         try {
@@ -65,7 +71,7 @@ public class CowinAlert {
             waitTime = 5;
         }
 
-        CowinSlotFinder.createAndShowGui(cowinService, districtChoice, filterChoice, dosageChoice, waitTime);
+        CowinSlotFinder.createAndShowGui(cowinService, districtChoice, ageFilterChoice, dosageChoice, waitTime);
 
         System.out.println("\n\nAbove Centers Found... Terminating....");
     }

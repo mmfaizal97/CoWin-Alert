@@ -11,7 +11,7 @@ public interface CowinService {
 
     List<District> listDistrictsToChooseFrom(Integer stateChoice);
 
-    void startSlotSearchingService(Integer districtChoice, String filterChoice, String dosageChoice, Integer waitTime);
+    void startSlotSearchingService(Integer districtChoice, String ageFilterChoice, String dosageChoice, Integer waitTime);
 
     void createSoundAlert();
 

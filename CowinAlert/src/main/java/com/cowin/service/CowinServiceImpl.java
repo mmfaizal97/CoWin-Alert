@@ -146,7 +146,7 @@ public class CowinServiceImpl implements CowinService {
     }
 
     @Override
-    public void startSlotSearchingService(Integer districtChoice, String filterChoice, String dosageChoice, Integer waitTime) {
+    public void startSlotSearchingService(Integer districtChoice, String ageFilterChoice, String dosageChoice, Integer waitTime) {
         StringBuilder content;
         boolean firstIteration = true;
 
@@ -196,7 +196,7 @@ public class CowinServiceImpl implements CowinService {
             List<Center> filteredCenters = centerList.stream().filter(center -> center.getSessions().stream().anyMatch(session ->
                     ((session.getAvailable_capacity() != 0 && ((dosageChoice.equals("Dose 1") && session.getAvailable_capacity_dose1() != 0)
                             || (dosageChoice.equals("Dose 2") && session.getAvailable_capacity_dose2() != 0)))
-                            && (!filterChoice.equalsIgnoreCase("18+") || session.getMin_age_limit() == 18))))
+                            && (!ageFilterChoice.equalsIgnoreCase("18+") || session.getMin_age_limit() == 18))))
                     .collect(Collectors.toList());
 
             if (!filteredCenters.isEmpty()) {

@@ -163,7 +163,7 @@ public class CowinServiceImpl implements CowinService {
                 int status = con.getResponseCode();
                 Reader streamReader;
                 if (status > MAXIMUM_ACCEPTED_RESPONSE) {
-                    System.out.println("Unable To Connect. Response: " + con.getResponseCode() + ". Trying again in " + waitTime + " seconds.....");
+                    System.out.println(new Date() + "Unable To Connect. Response: " + con.getResponseCode() + ". Trying again in " + waitTime + " seconds.....");
                     Thread.sleep(waitTime * 1000L);
                     continue;
                 } else {
@@ -178,7 +178,7 @@ public class CowinServiceImpl implements CowinService {
                 in.close();
                 con.disconnect();
             } catch (Exception e) {
-                System.out.println("Something Went Wrong. Please Try Again...");
+                System.out.println(new Date() + "Something Went Wrong. Please Try Again...");
             }
 
             List<Center> centerList = new ArrayList<>();
@@ -200,12 +200,12 @@ public class CowinServiceImpl implements CowinService {
                     .collect(Collectors.toList());
 
             if (!filteredCenters.isEmpty()) {
-                System.out.println("\n\nFound Centers With Slots Available In Next 7 Days...\n");
+                System.out.println("\n\n" + new Date() + "Found Centers With Slots Available In Next 7 Days...\n");
                 filteredCenters.forEach(System.out::println);
                 break;
             }
 
-            System.out.println("No centers Available... Searching again in " + waitTime + " seconds.....");
+            System.out.println(new Date() + ": No centers Available... Searching again in " + waitTime + " seconds.....");
             try {
                 Thread.sleep(waitTime * 1000L);
             } catch (Exception e) {
